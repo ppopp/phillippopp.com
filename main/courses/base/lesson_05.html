@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/basic.dwt" codeOutsideHTMLIsLocked="false" -->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+        <!-- InstanceBeginEditable name="doctitle" -->
+        <title>Phillip Popp</title>
+        <!-- InstanceEndEditable -->
+        <!-- InstanceBeginEditable name="head" -->
+        <!-- InstanceEndEditable -->
+        <link href="../../main.css" rel="stylesheet" type="text/css"></link>
+        <script type="application/javascript" src="../../../js/jquery-1.7.1.min.js"></script>
+        <script type="application/javascript" src="../../../js/sliding_background.js"></script>
+        <script type="text/javascript">
+		$&#40;document&#41;.ready&#40;function&#40;&#41; {
+			attach_sliding_background&#40;".twoCol"&#41;;
+		}&#41;;
+		</script>
+   </head>
+    
+    <body class="twoCol">    
+        <div id="container">
+          <p class="nav_link"><a href="../../index.html">Main</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Sound</p>
+          <p class="nav_link" ><a href="../../the_interweb/index.html">The Interweb</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Code</p>
+          <p class="nav_link"><a href="../../publications/index.html">Publications</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Resume</p>
+          <p class="nav_link"><a href="../index.html">Courses</a></p>
+          <p class="nav_link"><a href="../../contact/index.html">Contact</a></p>
+            <br class="clearfloat" />
+          <div id="mainContent">
+            <!-- InstanceBeginEditable name="main_content" -->
+                <h1>Lesson 5</h1>
+                <p>Press &lt;Cmd-Space&gt;.  This brings up your search bar. </p>
+                <p><img src="img/search_term.png" width="520" height="135" /><br />
+            Type in the word &quot;terminal&quot; to have it search for the Terminal Application.</p>
+            <p><img src="img/terminal.png" width="709" height="485" /><br />
+                Hit &lt;return&gt; to start Terminal.</p>
+                <h2>Refresher</h2>
+            <p>We learned several terminal commands two weeks ago. To run them you just have to type them into the terminal and hit &lt;return&gt;</p>
+                <p>ls -- list directory contents<br />
+                  cd -- change directory<br />
+            </p>
+                <p>A while ago we created a folder with your name on it.  Use &quot;cd&quot; to change directories until you get there &#40;hint: these were placed on the desktop so you'll have to start with &quot;cd Desktop&quot;&#41; </p>
+<p>FYI, in these instructions if you're supposed to type something into Terminal, it'll generally be shown as </p>
+                <div class="code"><p>$ cd Desktop</p></div>
+                <p>You don't need to type in the &quot;$ &quot;, but just know that it means to type things into terminal.  And don't forget to hit &lt;return&gt; when you're done!</p>
+                <p>Press &lt;Cmd-Space&gt; again to bring up your Mac spotlight search, and this time type in textedit. <br />
+                  Hit return to start the TextEdit application.</p>
+                <p><img src="img/starttextedit.png" width="659" height="615" /></p>
+                <p>Just to get things rolling, in TextEdit type</p>
+                <div class="code">
+                  <p>print &quot;starting lesson 5!&quot;</p></div>
+                <p>Before saving, remember that TextEdit initially tries to save files in rtf &#40;rtf stands for Rich Text Format&#41;.  We don't want any of that funky jazz because it confuses python, so before saving convert your file to txt format. Go to &quot;Format&quot; in the menu bar and click &quot;Make Plain Text&quot;</p>
+                <p><img src="img/plaintext.png" width="445" height="242" /></p>
+                <p>Now hit &lt;Cmd-s&gt; to save the file.  Save it in your folder with the name &quot;lesson_5.txt&quot;.</p>
+                <p>Go to terminal and run</p>
+                <div class="code">
+                  <p>$ python lesson_5.txt</p></div>
+<h2>Graphics</h2>
+<p>When doing computer graphics, imaging you are a puppeteer, and your puppet is a painter. If you want to draw something beautiful, you have to tell the puppet how to draw it on the canvas.<br /><br />Copy the code below into text edit and try running it.</p>
+<div class="code"><p>
+from Tkinter import *<br />
+<br />
+master = Tk&#40;&#41;<br />
+w = Canvas&#40;master, width=800, height=800&#41;<br />
+w.pack&#40;&#41;<br />
+w.create_line&#40;0, 400, 700, 100&#41;<br />
+w.create_rectangle&#40;50, 25, 150, 75, fill="blue"&#41;<br />
+w.create_oval&#40;300, 300, 500, 500, fill='green'&#41;<br />
+<br />
+mainloop&#40;&#41;<br />
+</p></div>
+  <p>Play around with the code a little bit, changing numbers and words and seeing what happens.  Try to make the oval be red, the line go all the way from top to bottom, and add another rectangle somwhere on the canvas.  Show Phil when you get it done.  If you're having trouble figuring it out don't be afraid to ask for help!
+</p>
+<p>Now let's try our hands at animation.  Copy and paste the following code into your script.</p>
+<div class="code"><p>
+&#35; Displays a red circle bouncing around the canvas window.<br />
+from Tkinter import *<br />
+&#35; make a window on the computer<br />
+window = Tk&#40;&#41;<br />
+<br />
+&#35;set the size of the window<br />
+windowWidth = 800<br />
+windowHeight = 600<br />
+canvas = Canvas&#40;window, width=windowWidth, height=windowHeight&#41;<br />
+canvas.pack&#40;&#41;<br />
+<br />
+&#35; x0, x1, y0, y1 are the four corners of our box<br />
+x0 = 10<br />
+y0 = 50<br />
+x1 = 60<br />
+y1 = 100<br />
+<br />
+&#35; deltax and deltay control how fast the box moves<br />
+deltax = 20<br />
+deltay = 3<br />
+<br />
+rect = canvas.create_rectangle&#40;x0,y0,x1,y1,fill="red", tag='redrect'&#41;<br />
+<br />
+&#35; this loop never stops! It just keeps going till you quit the program<br />
+while True:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&#35; the animation happens here<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&#35; move the rectangle<br />
+&nbsp;&nbsp;&nbsp;&nbsp;canvas.move&#40;'redrect', deltax, deltay&#41;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&#35; wait a little bit<br />
+&nbsp;&nbsp;&nbsp;&nbsp;canvas.after&#40;20&#41;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&#35; show the canvas on the screen<br />
+&nbsp;&nbsp;&nbsp;&nbsp;canvas.update&#40;&#41;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&#35; check whether the rectangle has moved outside of the window<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if x1 &gt;= windowWidth or x0 < 0:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deltax = -deltax<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if y1 &gt;= windowHeight or y0 < 0:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deltay = -deltay<br />
+&nbsp;&nbsp;&nbsp;&nbsp;x0 += deltax<br />
+&nbsp;&nbsp;&nbsp;&nbsp;x1 += deltax<br />
+&nbsp;&nbsp;&nbsp;&nbsp;y0 += deltay<br />
+&nbsp;&nbsp;&nbsp;&nbsp;y1 += deltay<br />
+window.mainloop&#40;&#41;<br />
+<br />
+</p>
+  </div>
+<p>Pretty sweet right! Can you make the rectangle move faster and make it bigger?  Show Phil when you figure it out or ask for help.</p>            <!-- InstanceEndEditable -->
+		  </div>
+            <br class="clearfloat" />
+        <p class="footer">Popp.Phillip <em>at</em> gmail <em>dot</em> com </p>
+        </div>
+    </body>
+<!-- InstanceEnd --></html>

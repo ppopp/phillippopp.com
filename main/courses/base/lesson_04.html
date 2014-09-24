@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/basic.dwt" codeOutsideHTMLIsLocked="false" -->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+        <!-- InstanceBeginEditable name="doctitle" -->
+        <title>Phillip Popp</title>
+        <!-- InstanceEndEditable -->
+        <!-- InstanceBeginEditable name="head" -->
+        <!-- InstanceEndEditable -->
+        <link href="../../main.css" rel="stylesheet" type="text/css"></link>
+        <script type="application/javascript" src="../../../js/jquery-1.7.1.min.js"></script>
+        <script type="application/javascript" src="../../../js/sliding_background.js"></script>
+        <script type="text/javascript">
+		$(document).ready(function() {
+			attach_sliding_background(".twoCol");
+		});
+		</script>
+   </head>
+    
+    <body class="twoCol">    
+        <div id="container">
+          <p class="nav_link"><a href="../../index.html">Main</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Sound</p>
+          <p class="nav_link" ><a href="../../the_interweb/index.html">The Interweb</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Code</p>
+          <p class="nav_link"><a href="../../publications/index.html">Publications</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Resume</p>
+          <p class="nav_link"><a href="../index.html">Courses</a></p>
+          <p class="nav_link"><a href="../../contact/index.html">Contact</a></p>
+            <br class="clearfloat" />
+          <div id="mainContent">
+            <!-- InstanceBeginEditable name="main_content" -->
+                <h1>Lesson 4</h1>
+                <p>Press &lt;Cmd-Space&gt;.  This brings up your search bar. </p>
+                <p><img src="img/search_term.png" width="520" height="135" /><br />
+                Type in the word &quot;terminal&quot; to have it search for the Terminal Application.</p>
+            <p><img src="img/terminal.png" width="709" height="485" /><br />
+                Hit &lt;return&gt; to start Terminal.</p>
+                <h2>Refresher</h2>
+            <p>We learned several terminal commands two weeks ago. To run them you just have to type them into the terminal and hit &lt;return&gt;</p>
+                <p>ls -- list directory contents<br />
+                  cd -- change directory<br />
+                  mkdir -- make directory<br />
+            top -- display information about the processor, RAM and other computer programs running</p>
+                <p>Two weeks ago we created a folder with your name on it.  Use &quot;cd&quot; to change directories until you get there (hint: these were placed on the desktop so you'll have to start with &quot;cd Desktop&quot;) </p>
+                <p>FYI, in these instructions if you're supposed to type something into Terminal, it'll generally be shown as </p>
+                <div class="code"><p>$ cd Desktop</p></div>
+                <p>You don't need to type in the &quot;$ &quot;, but just know that it means to type things into terminal.  And don't forget to hit &lt;return&gt; when you're done!</p>
+                <p>Press &lt;Cmd-Space&gt; again to bring up your Mac spotlight search, and this time type in textedit. <br />
+                  Hit return to start the TextEdit application.</p>
+                <p><img src="img/starttextedit.png" width="659" height="615" /></p>
+                <p>Just to get things rolling, in TextEdit type</p>
+                <div class="code">
+                  <p>print &quot;starting lesson 4!&quot;</p></div>
+                <p>Before saving, remember that TextEdit initially tries to save files in rtf (rtf stands for Rich Text Format).  We don't want any of that funky jazz because it confuses python, so before saving convert your file to txt format. Go to &quot;Format&quot; in the menu bar and click &quot;Make Plain Text&quot;</p>
+                <p><img src="img/plaintext.png" width="445" height="242" /></p>
+                <p>Now hit &lt;Cmd-s&gt; to save the file.  Save it in your folder with the name &quot;lesson_4.txt&quot;.</p>
+                <p>Go to terminal and run</p>
+                <div class="code">
+                  <p>$ python lesson_4.txt</p></div>
+<h2>Scope</h2>
+<p>The &quot;scope&quot; in a piece of code defines what variables it can utilize and which lines of code belong to each other. In most all computer programming languages, &quot;scope&quot; is a very important term.  Specifically, in they python programming language, scope is controlled by tabs and colons within functions.  Take the following bit of code for example:</p>
+<div class="code"><p>def some_function(num):<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; x = num<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; for i in range(0, 100):<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; y = i * 2<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; x = x + y<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; return x<br />
+  <br />
+  z = 10</p></div>
+  <p>
+  The line at the end of &quot;def some_function(num):&quot; defines the start of a new scope.  Everything that is in that scope is tabbed in. All the code below that is tabbed in is considered &quot;within the scope&quot; of the function. The &quot;z = 10&quot; is out of the function's scope.  Since scope is used to group things together, and z is not within that group, it can't use the x and y variables. </p>
+<p>For &quot;for loops&quot; and &quot;if statements&quot; Then the &quot;for i in range(0, 100):&quot; defines another type of scope (notice the colon and additional tab).  It doesn't control access of variables, but it does define which pieces of code are executed. For instance, the &quot;y = i * 2&quot; and &quot;x = x + y&quot; lines of code are run over and over again in the for loop, while the &quot;return x&quot; line is only run after.  That's because the &quot;y = i * 2&quot; and &quot;x = x + y&quot; lines are within the scope of that for loop and the &quot;return x&quot; line is outside of the for loop's scope.  Lastly, scopes can be nested, so the lines &quot;y = i * 2&quot; and &quot;x = x + y&quot; are in the scope of the for loop and inside the scope of the function.</p>
+<p>Scope can be a bit confusing, but it starts to make a lot more sense with a bit of practice.  Try out these two examples and notice the difference.<br />
+</p>
+<div class="code"><p>def function_01():<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; x = 0<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; y = 0<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; for i in range(1, 10):<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; y = i * 2<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; x = x + y<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; print x<br />
+</p>
+<p>def function_02():<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; x = 0<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; y = 0<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; for i in range(1, 10):<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; y = i * 2<br />
+ &nbsp;&nbsp;&nbsp;&nbsp; x = x + y<br />
+  &nbsp;&nbsp;&nbsp;&nbsp; print x<br />
+</p>
+<p>print &quot;running function_01&quot;<br />
+  function_01()</p>
+<p>print &quot;running function_02&quot;<br />
+  function_02()</p>
+  </div>
+<p>What's the difference between these two functions?  How come one printed out a bunch of numbers and the other only printed out one number? </p>
+<p>Alright, now that you have that figured out, get Phil and tell him what the differences are.  Can you tell him where all the variables are, where the functions are defined and where the functions are called. Where are the various scopes in this code?</p>
+	<p>Download the <a href='hack_02.zip'>next hack challenge</a></p>
+            <!-- InstanceEndEditable -->
+	    </div>
+            <br class="clearfloat" />
+        <p class="footer">Popp.Phillip <em>at</em> gmail <em>dot</em> com </p>
+        </div>
+    </body>
+<!-- InstanceEnd --></html>

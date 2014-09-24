@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>July 30th 2011</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link href="../wedding/oneColElsCtrHdr.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="oneColElsCtrHdr">
+
+<div id="container">
+  <div id="header"><img class="header_image" src="../wedding/img/header.gif" width="800" height="259" />
+  <p  id="header_links"><a href="main.html">The Wedding</a> | <a href="farm.html">The Farm</a> |  <a href="weather.html">The Weather</a> | <a href="area.html">The Area</a>  | <a href="engagement.html">Engagement Photos</a></p></div>
+  <div id="mainContent"><!-- TemplateBeginEditable name="main_content" -->
+  
+    <h1> Main Content </h1>
+    <p>Add info here</p>
+    <!-- TemplateEndEditable -->
+	<!-- end #mainContent --></div>
+<!-- end #container --></div>
+</body>
+</html>

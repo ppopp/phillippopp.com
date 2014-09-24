@@ -1,0 +1,50 @@
+body {
+	width:  100%;
+	margin: 0px;
+	padding: 0;
+	background: white;
+	font-size: 14px;
+	font-family: Courier New;
+}
+
+#garden {
+	position:fixed;
+	top:0;
+	left:0;
+	z-index: -1;
+	
+}
+
+#content {
+	background-color:rgba(255,255,255,0.9);
+	z-index: 2;
+	width: 50%;
+	margin: 0;
+	padding: 10px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#nav{
+	width: 100%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#writings {
+	padding: 10px;
+}
+
+p {
+	font-size: 14px;
+}
+img {
+	width: 100%;
+}
+
+.arrow {
+	width: auto;
+}

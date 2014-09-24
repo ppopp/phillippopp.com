@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8">
+	<head>
+		<title>Zoomable Treemap</title>
+		<style>
+
+		#chart {
+			width: 800px;
+			height: 500px;
+			background: #bbb;
+		}
+
+		text {
+			pointer-events: none;
+		}
+
+		.grandparent text { /* header text */
+			font-weight: bold;
+			font-size: medium;
+			font-family: "Open Sans", Helvetica, Arial, sans-serif; 
+		}
+
+		rect {
+			fill: none;
+			stroke: #fff;
+		}
+
+		rect.parent, .grandparent rect {
+			stroke-width: 1px;
+		}
+
+		.grandparent rect {
+			fill: #fff;
+		}
+
+		.children rect.parent, .grandparent rect {
+			cursor: pointer;
+		}
+
+		rect.parent {
+			pointer-events: all; 
+		}
+
+		.children:hover rect.child,
+		.grandparent:hover rect {
+			fill: #aaa;
+		}
+
+		.textdiv { /* text in the boxes */
+			font-size: small;
+			padding: 5px;
+			/*font-family: "Open Sans", Helvetica, Arial, sans-serif; */
+			color: white;
+		}
+		.amount {
+			padding: 0px;
+			margin: 0px;
+			font-size: medium
+		}
+
+		.name {
+			padding: 0px;
+			margin: 0px;
+			font-size: small 
+		}
+			
+
+		</style>
+	</head>
+	<body>
+		<p id="chart">
+		<table id="table">
+		</table>
+
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script>
+			function fusion_url(api_key, table_id, column_order) {
+				/* load in data, display root */
+				var query = encodeURIComponent('SELECT ' + column_order.join(',') + ',Sum(Amount) FROM ' + table_id + ' GROUP BY ' + column_order.join(','));
+				var url = 'https://www.googleapis.com/fusiontables/v1/query?sql=' + query + '&key=' + fusion_api_key;
+				return url;
+			}
+
+			/* helper function for preparing data for visualization */
+			function prepare_recurse(node) {
+				/* nodes need to have 'children' in order to work with calls to 
+				   d3.layout.partition
+				 */
+
+				/* hold sum of child values */
+				var value = 0.0;
+
+				/* recurse through children of node */
+				node.children.forEach(function(child) {
+					/* 'values' either contains the budget amount for a node, 
+					   or it contains a list of sub nodes.  This code checks
+					   whether 'values' is an array or a number.  If it is a 
+					   number it accumulates it, otherwise it continues to 
+					   process the children
+					 */
+					if (child.hasOwnProperty('values')) {
+						if (isNaN(child.values)) {
+							if (child.values instanceof Array) {
+								/* for visualization code, need to set children variable */
+								child.children = child.values;
+								value += prepare_recurse(child);
+							}
+						}
+						else {
+							/* parse integer of child values */
+							child.value = parseFloat(child.values);
+							value += child.value;
+						}
+					}
+				});
+
+				/* assign the value for this node as the sum of the child values */
+				node.value = value;
+
+				/* sort child values */
+				node.children.sort(function(a, b) {
+					return b.value - a.value;
+				});
+
+				/* return this nodes value */
+				return value;
+			}
+
+			/* process the return to d3.nest so that it can be displayed */
+			function prepare(data) {
+				var root = {
+					key: 'Budget',
+					children: data
+				};
+				prepare_recurse(root);
+				return root;
+			}
+
+			function text(text) {
+				text.attr("x", function(d) { return x(d.x) + 6; })
+					.attr("y", function(d) { return y(d.y) + 6; });
+			}
+
+			function rect(rect) {
+				rect.attr("x", function(d) { return x(d.x); })
+					.attr("y", function(d) { return y(d.y); })
+					.attr("width", function(d) { return x(d.x + d.dx) - x(d.x); })
+					.attr("height", function(d) { return y(d.y + d.dy) - y(d.y); });
+			}
+
+			function foreign(foreign){ /* added */
+				foreign.attr("x", function(d) { return x(d.x); })
+					.attr("y", function(d) { return y(d.y); })
+					.attr("width", function(d) { return x(d.x + d.dx) - x(d.x); })
+					.attr("height", function(d) { return y(d.y + d.dy) - y(d.y); });
+			}
+
+			/* determine current view in hierarchy based on url hash */
+			function get_hash_location(root) {
+				if (window.location.hash.length < 2) {
+					return root;
+				}
+				var str = window.location.hash;
+				str = str.replace("#","");
+				var initial_keys = str.split(".");
+				var node = root;
+				while (initial_keys.length > 0) {
+					var next_key = initial_keys.shift();
+					var next_node = null;
+					node.children.forEach(function(c) {
+						if (c.key == next_key) {
+							next_node = c
+						}
+					});
+					if (!next_node) {
+						return node;
+					}
+					node = next_node;
+				}
+				return node;
+			}
+
+			function set_hash_location(node) {
+				var keys = []
+				while (node.parent) {
+					keys.push(node.key);
+					node = node.parent;
+				}
+				keys.reverse()
+				window.location.hash = keys.join('.');
+			}
+
+
+			/* fusion table info */
+			var fusion_api_key = 'AIzaSyCnWo1USrkSKnN6oy02tNeWfg6aFSg0OI8';
+			var fusion_table_id = '1V2R7lsdg-GTbGOZ_h_DrGOa-Gfqk1PGA9h_n5zwU';
+			var hierarchy = ['Fund Description', 'Department', 'Division'].map(function(x) { return "'" + x + "'"; });
+			/* visualization parameters */
+			var max_funds = 40;
+
+
+			/* layout settings */
+			var margin = {top: 20, right: 0, bottom: 0, left: 0};
+			var width = 800;
+			var height = 500 - margin.top - margin.bottom;
+			var min_area_for_text = 0.0125;
+
+			var format_number = d3.format("$,d");
+			var transitioning;
+			var colors = d3.scale.category10().domain([0, max_funds]);
+
+			/* create x and y scales */
+			var x = d3.scale.linear()
+				.domain([0, width])
+				.range([0, width]);
+
+			var y = d3.scale.linear()
+				.domain([0, height])
+				.range([0, height]);
+
+			var treemap = d3.layout.treemap()
+				.sort(function(a, b) { return a.value - b.value; })
+				.round(false)
+				/*
+				.children(function (d) { 
+					if (d.children) {
+						return d.children.slice(0, max_funds); 
+					}
+					return d.children;
+				})
+				*/
+				.ratio(height / width); 
+		
+			url = fusion_url(fusion_api_key, fusion_table_id, hierarchy);
+			d3.json(url, function(data) {
+				/* d3.nest takes the row data given by fusion tables and converts it into 
+				   hierarchical data needed for our visualization.  Accumulate 
+				   and nest data to depth determined by 'heirarchy' 
+				 */
+				var nest = d3.nest();
+				d3.range(hierarchy.length)
+					.forEach(function(i) {
+						/* recursively apply hierarchy keys */
+						nest = nest.key(function(d) { return d[i]; });
+					});
+
+				/* when rolling up child data into group, sum their values */
+				nest = nest.rollup(function(d) { 
+					var sum = 0.0;
+					d.forEach(function(x) {
+						sum += parseFloat(x[3]);
+					});
+					return sum;
+				}).entries(data.rows);
+
+
+				/* prepare data for visualization */
+				var root = prepare(nest);
+				/* remove lowest funds */
+				root.values = root.children;
+				root.children = root.children.slice(0, max_funds);
+
+				/* create svg */
+				var svg = d3.select("#chart").append("svg")
+					.attr("width", width + margin.left + margin.right)
+					.attr("height", height + margin.bottom + margin.top)
+					.style("margin-left", -margin.left + "px")
+					.style("margin.right", -margin.right + "px")
+					.append("g")
+					.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+					.style("shape-rendering", "crispEdges");
+
+				var grandparent = svg.append("g")
+					.attr("class", "grandparent");
+
+				grandparent.append("rect")
+					.attr("y", -margin.top)
+					.attr("width", width)
+					.attr("height", margin.top);
+
+				grandparent.append("text")
+					.attr("x", 6)
+					.attr("y", 6 - margin.top)
+					.attr("dy", ".75em");
+
+				initialize(root);
+				layout(root);
+				var node = get_hash_location(root);
+				x.domain([node.x, node.x + node.dx]);
+				y.domain([node.y, node.y + node.dy]);
+
+				
+				display(node);
+				table(node);
+
+				function initialize(root) {
+					root.x = root.y = 0;
+					root.dx = width;
+					root.dy = height;
+					root.depth = 0;
+					d3.selectAll(".depth").remove();
+				}
+
+
+
+
+
+				// Compute the treemap layout recursively such that each group of siblings
+				// uses the same size (1×1) rather than the dimensions of the parent cell.
+				// This optimizes the layout for the current zoom state. Note that a wrapper
+				// object is created for the parent node for each group of siblings so that
+				// the parent’s dimensions are not discarded as we recurse. Since each group
+				// of sibling was laid out in 1×1, we must rescale to fit using absolute
+				// coordinates. This lets us use a viewport to zoom.
+				function layout(d) {
+					if (d.children) {
+						treemap.nodes({children: d.children});
+						d.children.forEach(function(c) {
+							c.x = d.x + c.x * d.dx;
+							c.y = d.y + c.y * d.dy;
+							c.dx *= d.dx;
+							c.dy *= d.dy;
+							c.parent = d;
+							c.depth = d.depth + 1;
+							layout(c);
+						});
+					}
+					if (d.parent) {
+						d.area = d.dx * d.dy / (d.parent.dx * d.parent.dy);
+					}
+				}
+
+				/* display show the treemap and writes the embedded transition function */
+				function display(d) {
+					set_hash_location(d);
+					/* create grandparent bar at top */
+					grandparent.datum(d)
+						.on("click", function(d) {
+							transition(d.parent, false);
+						})
+						.select("text")
+						.text(function(d) { 
+							var crumbs = [];
+							var node = d;
+							while (node != null) {
+								crumbs.push(node.key);
+								node = node.parent;
+							}
+							return crumbs.reverse().join(' > ');
+						});
+
+					var g1 = svg.insert("g", ".grandparent")
+						.datum(d)
+						.attr("class", "depth");
+
+					/* add in data */
+					var g = g1.selectAll("g")
+						.data(d.children)
+						.enter().append("g")
+						.on("click", function (d) { transition(d, true);} )
+						.attr("class", "groups");
+
+					/* transition on child click */
+					g.filter(function(d) { return d.children; })
+						.classed("children", true)
+						.on("click", function (d) { transition(d, true); });
+
+					/* write parent rectangle */
+					g.append("rect")
+						.attr("class", "parent")
+						.style("fill", function(d, i) { return colors(i);})
+						.call(rect)
+						.on("mouseover", function(d, i) { 
+							d3.select(this).style("fill", d3.rgb(colors(i)).darker());
+						})
+						.on("mouseout", function(d, i) {
+							d3.select(this).style("fill", colors(i));
+						})
+						.append("title")
+						.attr("class", "text")
+						.text(function(d) { return format_number(d.value); });
+
+					/* Adding a foreign object instead of a text object, allows for text wrapping */
+					var fo = g.append("foreignObject")
+						.call(rect)
+						.attr("class","foreignobj")
+						.append("xhtml:div")
+						.attr("class", "textdiv")
+						.on("mouseover", function(d, i) { 
+							d3.select(this.parentNode.parentNode).select("rect").style("fill", d3.rgb(colors(i)).darker());
+						})
+						.on("mouseout", function(d, i) { 
+							d3.select(this.parentNode.parentNode).select("rect").style("fill", colors(i));
+						});
+					fo.append("xhtml:div") 
+						.attr("dy", ".75em")
+						.html(function(d) { 
+							return d.area >= min_area_for_text ? format_number(d.value) : "";
+						})
+						.attr("class","amount");
+					fo.append("xhtml:div") 
+						.attr("dy", ".75em")
+						.html(function(d) { 
+							return d.area >= min_area_for_text ? d.key : "";
+						})
+						.attr("class","name"); //textdiv class allows us to style the text easily with CSS
+
+					/* create transition function for transitions */
+					function transition(d, direction) {
+						if (transitioning || !d) return;
+						if (!d.children) return;
+						transitioning = true;
+
+
+						var g2 = display(d);
+						table(d);
+						var t1 = g1.transition().duration(750)
+						var t2 = g2.transition().duration(750);
+
+						// Update the domain only after entering new elements.
+						x.domain([d.x, d.x + d.dx]);
+						y.domain([d.y, d.y + d.dy]);
+
+						// Enable anti-aliasing during the transition.
+						svg.style("shape-rendering", null);
+
+						// Draw child nodes on top of parent nodes.
+						if (direction) {
+							svg.selectAll(".depth").sort(function(a, b) { return b.depth - a.depth; });
+						}
+						else {
+							svg.selectAll(".depth").sort(function(a, b) { return a.depth - b.depth; });
+						}
+
+						// Fade-in entering text.
+						g2.selectAll("text").style("fill-opacity", 0);
+						g2.selectAll("foreignObject div").style("display", "none"); 
+
+						// Transition to the new view.
+						t1.selectAll("text").call(text).style("fill-opacity", 0);
+						t2.selectAll("text").call(text).style("fill-opacity", 1);
+						t1.selectAll("rect").call(rect).style("fill-opacity", 0);
+						t2.selectAll("rect").call(rect).style("fill-opacity", 1);
+
+						t1.selectAll(".textdiv").style("display", "none"); 
+						t1.selectAll(".foreignobj").call(foreign); 
+						t2.selectAll(".textdiv").style("display", "block"); 
+						t2.selectAll(".foreignobj").call(foreign); 
+
+						// Remove the old node when the transition is finished.
+						t1.remove().each("end", function() {
+							svg.style("shape-rendering", "crispEdges");
+							transitioning = false;
+						});
+
+						transitioning = false;
+
+					}//end transition
+
+
+					return g;
+				}//end display
+
+				function table(node) {
+					var rows = d3.select("#table").selectAll(".row").data(node.values);
+					var row = rows.enter().append("tr").attr("class", "row");
+					row.append("td").html(function(d) { return d.key; });
+					row.append("td").html(function(d) { return format_number(d.value); });
+					rows.exit().remove();
+				}
+						
+
+
+
+			});
+		</script>
+
+
+	</body>
+</html>

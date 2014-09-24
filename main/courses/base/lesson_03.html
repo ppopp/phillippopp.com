@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/basic.dwt" codeOutsideHTMLIsLocked="false" -->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+        <!-- InstanceBeginEditable name="doctitle" -->
+        <title>Phillip Popp</title>
+        <!-- InstanceEndEditable -->
+        <!-- InstanceBeginEditable name="head" -->
+        <!-- InstanceEndEditable -->
+        <link href="../../main.css" rel="stylesheet" type="text/css"></link>
+        <script type="application/javascript" src="../../../js/jquery-1.7.1.min.js"></script>
+        <script type="application/javascript" src="../../../js/sliding_background.js"></script>
+        <script type="text/javascript">
+		$(document).ready(function() {
+			attach_sliding_background(".twoCol");
+		});
+		</script>
+   </head>
+    
+    <body class="twoCol">    
+        <div id="container">
+          <p class="nav_link"><a href="../../index.html">Main</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Sound</p>
+          <p class="nav_link" ><a href="../../the_interweb/index.html">The Interweb</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Code</p>
+          <p class="nav_link"><a href="../../publications/index.html">Publications</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Resume</p>
+          <p class="nav_link"><a href="../index.html">Courses</a></p>
+          <p class="nav_link"><a href="../../contact/index.html">Contact</a></p>
+            <br class="clearfloat" />
+          <div id="mainContent">
+            <!-- InstanceBeginEditable name="main_content" -->
+                <h1>Lesson 3</h1>
+                <p>Press &lt;Cmd-Space&gt;.  This brings up your search bar. </p>
+                <p><img src="img/search_term.png" width="520" height="135" /><br />
+                Type in the word &quot;terminal&quot; to have it search for the Terminal Application.</p>
+            <p><img src="img/terminal.png" width="709" height="485" /><br />
+                Hit &lt;return&gt; to start Terminal.</p>
+                <h2>Refresher</h2>
+            <p>We learned several terminal commands two weeks ago. To run them you just have to type them into the terminal and hit &lt;return&gt;</p>
+                <p>ls -- list directory contents<br />
+                  cd -- change directory<br />
+                  mkdir -- make directory<br />
+            top -- display information about the processor, RAM and other computer programs running</p>
+                <p>Two weeks ago we created a folder with your name on it.  Use &quot;cd&quot; to change directories until you get there (hint: these were placed on the desktop so you'll have to start with &quot;cd Desktop&quot;) </p>
+                <p>FYI, in these instructions if you're supposed to type something into Terminal, it'll generally be shown as </p>
+                <div class="code"><p>$ cd Desktop</p></div>
+                <p>You don't need to type in the &quot;$ &quot;, but just know that it means to type things into terminal.  And don't forget to hit &lt;return&gt; when you're done!</p>
+                <p>Press &lt;Cmd-Space&gt; again to bring up your Mac spotlight search, and this time type in textedit. <br />
+                  Hit return to start the TextEdit application.</p>
+                <p><img src="img/starttextedit.png" width="659" height="615" /></p>
+                <p>Just to get things rolling, in TextEdit type</p>
+                <div class="code">
+                  <p>print &quot;starting lesson 3!&quot;</p></div>
+                <p>Before saving, remember that TextEdit initially tries to save files in rtf (rtf stands for Rich Text Format).  We don't want any of that funky jazz because it confuses python, so before saving convert your file to txt format. Go to &quot;Format&quot; in the menu bar and click &quot;Make Plain Text&quot;</p>
+                <p><img src="img/plaintext.png" width="445" height="242" /></p>
+                <p>Now hit &lt;Cmd-s&gt; to save the file.  Save it in your folder with the name &quot;lesson_3.txt&quot;.</p>
+                <p>Go to terminal and run</p>
+                <div class="code">
+                  <p>$ python lesson_3.txt</p></div>
+
+                <p>So far we've covered &quot;variables&quot;, &quot;functions&quot;, and &quot;flow control&quot;. Today we're going to introduce &quot;operators&quot; as well as a new type of variable called a &quot;list&quot;.  </p>
+                <h2>Operators</h2>
+                <p>Operators are just like functions, in fact they ARE functions, but they look very different when you use them.  Consider this code:</p>
+                <div class="code"><p>a = 1<br />
+                  b = 2<br />
+                  c = a + 3</p>
+                  </div>
+                <p>All of the &quot;=&quot; and &quot;+&quot; in that code are operators.  The &quot;=&quot; is a fairly special operator called the &quot;assignment operator&quot;.  There are many operators.  Lets try the &quot;less than&quot; and &quot;greater than&quot; operators.  They look like &quot;&lt;&quot; and &quot;&gt;&quot;</p>
+                <p>Try running this code:</p>
+                <div class="code"><p>x = 10<br />
+                  y = 12<br />
+                  z = x &gt; y<br />
+                  print z</p>
+                  </div>
+                <p>So the &quot;greater than&quot; operator checked to see if x was greater than y.  <br />
+                  Now try running this code, but replace the question marks with the values to make it print out &quot;What a radical dude with a radical 'tude!&quot;</p>
+                
+                <div class="code"><p>x = ?<br />
+                  y = ?<br />
+                  z = ?</p>
+                <p>print &quot;What a &quot;,<br />
+                  if x &gt; 34:<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;print &quot;stanky &quot;,<br />
+                  else:<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;print &quot;radical &quot;, <br />
+                  print &quot;dude with a &quot;, </p>
+                <p>if y &lt; 12:<br />
+                 &nbsp;&nbsp;&nbsp;&nbsp; print &quot;radical &quot;<br />
+                  else:<br />
+                 &nbsp;&nbsp;&nbsp;&nbsp; print &quot;ugly &quot;<br />
+  <br />
+                  w = x + y<br />
+                  if z &gt; w:<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;print &quot;'tude!&quot;<br />
+                  else:<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;print &quot;cat :(&quot;</p>
+                  </div>
+            <p>When you finish, show Phil!<br />
+                </p>
+                <h2>List</h2>
+                <p>A list holds a sequence of variables in order.  You create a list by using square brackets like &quot;[&quot; and &quot;]&quot;.  You also access the variables in a list using brackets.</p>
+                <p>Try running this bit of code:</p>
+                <div class="code">
+                <p>x = [&quot;Phil&quot;, &quot;is&quot;, &quot;the&quot;, &quot;best&quot;, &quot;teacher&quot;]<br />
+                  print x</p>
+                  </div>
+                <p>This should pretty much just print back what you typed in.  The brackets create the list and assign the list to the variable x.  </p>
+                <p>The neat thing about lists is that you can access just one element at a type.  Write the code below into your editor, but before running it, try to guess what will be printed to the screen:</p>
+                <div class="code">
+                <p>x = [&quot;Phil&quot;, &quot;is&quot;, &quot;the&quot;, &quot;best&quot;, &quot;teacher&quot;]<br />
+                  print x[0]<br />
+                  print x[1]<br />
+                  x[3] = &quot;meanest&quot;<br />
+                  print x</p>
+                  </div>
+            <p>As you can see, once a list is assigned to a variable, you can access it's elements by using the bracket operator and saying which position in the list to access.</p>
+                <p>Now, go get Phil because you're ready for the hack challenge!</p>
+                <p>(<a href="hack_01.zip">DOWNLOAD HACK CHALLENGE 1</a>)</p>
+            <p>&nbsp;</p>
+            <!-- InstanceEndEditable -->
+	    </div>
+            <br class="clearfloat" />
+        <p class="footer">Popp.Phillip <em>at</em> gmail <em>dot</em> com </p>
+        </div>
+    </body>
+<!-- InstanceEnd --></html>

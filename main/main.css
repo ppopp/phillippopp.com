@@ -1,0 +1,121 @@
+@charset "utf-8";
+body 
+{
+	font: 100% "Lucida Console", Monaco, monospace;
+	/*background: #FFFFFF; */
+	/*background-image:url(../img/blinds.gif);*/
+	margin: 0; 
+	padding: 0;
+	text-align: center;
+	color: #000000;
+}
+
+.bg_bar {
+	background-color:#000;
+	height:10px;
+	width:100%;
+	position:absolute;
+	z-index:-10;
+}
+
+a:link
+{
+	color:#900;
+	text-decoration:none;
+}
+
+a:visited
+{
+	color:#900;
+	text-decoration:line-through;
+}
+
+a:active
+{
+	color:#CCC;
+	text-decoration:none;
+}
+
+a:hover
+{
+	color:#F00;
+	text-decoration: none;
+}
+
+#container
+{ 
+	width: 800px;
+	background: #FFFFFF;
+	margin: 0 auto; 
+	border: 1px solid #000000;
+	text-align: left; 
+} 
+
+img {
+	max-width: 800px;
+}
+
+h3, p
+{
+	margin-left: 10px; 
+	margin-right: 10px;
+}
+
+#mainContent
+{
+ 	margin: 0 0 0 0;
+} 
+
+
+.clearfloat 
+{ 
+	clear:both;
+    height:0;
+    font-size: 1px;
+    line-height: 0px;
+}
+
+.nav_link
+{
+	float:left;
+}
+
+.nav_link a:link
+{
+	text-decoration: none;
+	color:#E93;
+}
+
+.nav_link a:hover
+{
+	text-decoration: none;
+	color:#F93;
+}
+
+.nav_link a:visited
+{
+	text-decoration: none;
+	color:#E93;
+}
+
+.nav_link a:active
+{
+	text-decoration: none;
+	color:#F93;
+}
+
+.footer
+{
+	text-align:center;
+	font-size:smaller;
+}
+
+.header
+{
+	text-align:center;
+}
+
+.code {
+	font-family:"Lucida Console", Monaco, monospace;
+	background-color:#CCC;
+	border:#F90

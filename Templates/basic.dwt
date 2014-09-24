@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+        <!-- TemplateBeginEditable name="doctitle" -->
+        <title>Phillip Popp</title>
+        <!-- TemplateEndEditable -->
+        <!-- TemplateBeginEditable name="head" -->
+        <!-- TemplateEndEditable -->
+        <link href="../main/main.css" rel="stylesheet" type="text/css"></link>
+        <script type="application/javascript" src="../js/jquery-1.7.1.min.js"></script>
+        <script type="application/javascript" src="../js/sliding_background.js"></script>
+        <script type="text/javascript">
+		$(document).ready(function() {
+			attach_sliding_background(".twoCol");
+		});
+		</script>
+   </head>
+    
+    <body class="twoCol">    
+        <div id="container">
+          <p class="nav_link"><a href="../main/index.html">Main</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Sound</p>
+          <p class="nav_link" ><a href="../main/the_interweb/index.html">The Interweb</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Code</p>
+          <p class="nav_link"><a href="../main/publications/index.html">Publications</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Resume</p>
+          <p class="nav_link"><a href="../main/courses/index.html">Courses</a></p>
+          <p class="nav_link"><a href="../main/contact/index.html">Contact</a></p>
+            <br class="clearfloat" />
+          <div id="mainContent">
+            <!-- TemplateBeginEditable name="main_content" -->
+                <h1>Titl</h1>
+                <p>paragraph 1</p>
+                <p>paragraph 2</p>
+       		<h2>H2 level heading </h2>
+           	<p>paragraph 3</p>
+<p>And another paragraph </p>
+            <!-- TemplateEndEditable -->
+		  </div>
+            <br class="clearfloat" />
+        <p class="footer">Popp.Phillip <em>at</em> gmail <em>dot</em> com </p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,181 @@
+from Tkinter import *
+
+# special numbers that represent the arrow keys
+_up_keycode_ = 8320768
+_down_keycode_ = 8255233
+_left_keycode_ = 8124162
+_right_keycode_ = 8189699
+
+class Ball:
+	def __init__(self, name, color, centerX, centerY, radius, speed, canvas):
+		# The __init__ function is called when you create a ball, such as when you type in
+		# x = Ball(name='ball name', color='red', centerX=10, centerY=10, radius=2, speed=5, canvas=canvas) 
+
+		# Determine the bounding box of the ball.  A "bounding box" is the 
+		# smallest square you can draw around the circle, and you can describe
+		# it using x0, y0, x1, and y1.	The top left corner is as (x0, y0), 
+		# the top right corner is at (x1, y0), the bottom right corner is at
+		# (x1, y1) and the bottom left corner is at (x0, y1)
+		self.x0 = centerX - radius
+		self.y0 = centerY - radius
+		self.x1 = centerX + radius
+		self.y1 = centerY + radius
+
+		# save the speed we want the ball to move in the x and y direction
+		self.deltaX = speed
+		self.deltaY = speed 
+
+		# hold onto the canvas we're drawing onto for later use
+		self.canvas = canvas
+
+		# we need a name for some reason. 
+		self.name = name
+
+		# finally, tell the canvas to draw the circle
+		self.circle = canvas.create_oval(
+			self.x0, 
+			self.y0, 
+			self.x1, 
+			self.y1, 
+			fill=color, 
+			tag=name)
+
+	def move(self):
+		# Move the ball a little bit.
+
+		# check if the ball is still inside the window.	 If it isn't, make it change it's direction
+		if self.x1 >= canvas.winfo_width() and self.deltaX > 0:
+			self.deltaX = -self.deltaX
+		elif self.x0 <= 0 and self.deltaX < 0:
+			self.deltaX = -self.deltaX
+		if self.y1 >= canvas.winfo_height() and self.deltaY > 0:
+			self.deltaY = -self.deltaY
+		if self.y0 <= 0 and self.deltaY < 0:
+			self.deltaY = -self.deltaY
+
+		# tell the canvas to move the image of the ball over a bit
+		self.canvas.move(self.name, self.deltaX, self.deltaY)
+
+		# keep track of where the ball is
+		self.x0 += self.deltaX
+		self.x1 += self.deltaX
+		self.y0 += self.deltaY
+		self.y1 += self.deltaY
+
+class Bar:
+	def __init__(self, name, color, x0, y0, x1, y1, speed, canvas, window):
+		# The __init__ function is called when you create a Bar.
+
+		# this tells the computer to call "keyup" when a button is released
+		# and "keydown" when a button is pressed
+		window.bind('<KeyRelease>', self.keyup)
+		window.bind('<KeyPress>', self.keydown)
+
+		# we remember the speed, but this Bar isn't moving because 
+		# self.deltaX and self.deltaY are zero.
+		self.speed = speed
+		self.deltaX = 0
+		self.deltaY = 0
+
+		# save the corner locations for this box
+		self.x0 = x0
+		self.y0 = y0
+		self.x1 = x1
+		self.y1 = y1
+
+		# hold onto the canvas we're drawing onto for later use
+		self.canvas = canvas
+
+		# we need a name for some reason. 
+		self.name = name
+
+		# finally, tell the canvas to draw the rectangle 
+		self.rect = canvas.create_rectangle(
+			self.x0, 
+			self.y0, 
+			self.x1, 
+			self.y1, 
+			fill=color, 
+			tag=name)
+
+	def keydown(self, event):
+		# This gets called whenever a key is pressed.
+		# you can see what letter it is by typing
+		# print event.char
+
+		# Here we check if the key that was pressed was any of the up, down,
+		# left or right keys. If it was, we change the deltaY or deltaX values
+		if event.keycode == _up_keycode_:
+			self.deltaY = -self.speed
+		elif event.keycode == _down_keycode_:
+			self.deltaY = self.speed
+		elif event.keycode == _left_keycode_:
+			self.deltaX = -self.speed
+		elif event.keycode == _right_keycode_:
+			self.deltaX = self.speed
+
+	def keyup(self, event):
+		# This gets called whenever a key is released.
+		# You can see what letter it is by typing
+		# print event.char
+
+		# Here we check if the key that was pressed was any of the up, down,
+		# left or right keys. If it was, we change the deltaY or deltaX values
+		if event.keycode == _up_keycode_ or event.keycode == _down_keycode_:
+			self.deltaY = 0
+		elif event.keycode == _left_keycode_ or event.keycode == _right_keycode_:
+			self.deltaX = 0
+
+	def move(self):
+		# this moves the rectangle 
+		self._move(self.deltaX, self.deltaY)
+
+	def _move(self, deltaX, deltaY):
+		# Move the rectangle a little bit.
+
+		# check if the ball is still inside the window.	 If it isn't, make it change it's direction
+		if self.x1 >= canvas.winfo_width() and deltaX > 0:
+			deltaX = 0
+		elif self.x0 <= 0 and deltaX < 0:
+			deltaX = 0
+		if self.y1 >= canvas.winfo_height() and deltaY > 0:
+			deltaY = 0
+		elif self.y0 <= 0 and deltaY < 0:
+			deltaY = 0
+
+		# tell the canvas to move the image of the ball over a bit
+		self.canvas.move(self.name, deltaX, deltaY)
+
+		# keep track of where the ball is
+		self.x0 += deltaX
+		self.x1 += deltaX
+		self.y0 += deltaY
+		self.y1 += deltaY
+
+# make a window on the computer
+window = Tk()
+
+#set the size of the window
+windowWidth = 800
+windowHeight = 600
+canvas = Canvas(window, width=windowWidth, height=windowHeight)
+canvas.pack()
+
+ball = Ball('theball', 'red', 10, 10, 30, 3, canvas)
+
+# this loop never stops! It just keeps going till you quit the program
+while True:
+	# the animation happens here
+
+	# if you want to move something around, you have to call it's "move()" 
+	# method.  Here the ball is moved because we're callling the move() method
+	ball.move()
+
+	# wait a little bit before redrawing the canvas (20 ms)
+	canvas.after(20)
+
+	# show the canvas on the screen
+	canvas.update()
+	
+window.mainloop()
+

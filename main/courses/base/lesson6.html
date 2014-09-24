@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/basic.dwt" codeOutsideHTMLIsLocked="false" -->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+        <!-- InstanceBeginEditable name="doctitle" -->
+        <title>Phillip Popp</title>
+        <!-- InstanceEndEditable -->
+        <!-- InstanceBeginEditable name="head" -->
+        <!-- InstanceEndEditable -->
+        <link href="../../main.css" rel="stylesheet" type="text/css"></link>
+        <script type="application/javascript" src="../../../js/jquery-1.7.1.min.js"></script>
+        <script type="application/javascript" src="../../../js/sliding_background.js"></script>
+        <script type="text/javascript">
+		$(document).ready(function() {
+			attach_sliding_background(".twoCol");
+		});
+		</script>
+   </head>
+    
+    <body class="twoCol">    
+        <div id="container">
+          <p class="nav_link"><a href="../../index.html">Main</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Sound</p>
+          <p class="nav_link" ><a href="../../the_interweb/index.html">The Interweb</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Code</p>
+          <p class="nav_link"><a href="../../publications/index.html">Publications</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Resume</p>
+          <p class="nav_link"><a href="../index.html">Courses</a></p>
+          <p class="nav_link"><a href="../../contact/index.html">Contact</a></p>
+            <br class="clearfloat" />
+          <div id="mainContent">
+            <!-- InstanceBeginEditable name="main_content" -->
+<h1>Lesson 5</h1>
+                <p>Press &lt;Cmd-Space&gt;.  This brings up your search bar. </p>
+                <p><img src="img/search_term.png" width="520" height="135" /><br />
+            Type in the word &quot;terminal&quot; to have it search for the Terminal Application.</p>
+            <p><img src="img/terminal.png" width="709" height="485" /><br />
+                Hit &lt;return&gt; to start Terminal.</p>
+                <h2>Refresher</h2>
+            <p>We learned several terminal commands two weeks ago. To run them you just have to type them into the terminal and hit &lt;return&gt;</p>
+                <p>ls -- list directory contents<br />
+                  cd -- change directory<br />
+            </p>
+                <p>A while ago we created a folder with your name on it.  Use &quot;cd&quot; to change directories until you get there (hint: these were placed on the desktop so you'll have to start with &quot;cd Desktop&quot;) </p>
+<p>FYI, in these instructions if you're supposed to type something into Terminal, it'll generally be shown as </p>
+                <div class="code"><p>$ cd Desktop</p></div>
+                <p>You don't need to type in the &quot;$ &quot;, but just know that it means to type things into terminal.  And don't forget to hit &lt;return&gt; when you're done!</p>
+                <p>Press &lt;Cmd-Space&gt; again to bring up your Mac spotlight search, and this time type in textedit. <br />
+                  Hit return to start the TextEdit application.</p>
+                <p><img src="img/starttextedit.png" width="659" height="615" /></p>
+                <p>Just to get things rolling, in TextEdit type</p>
+                <div class="code">
+                  <p>print &quot;starting lesson 6!&quot;</p></div>
+                <p>Before saving, remember that TextEdit initially tries to save files in rtf (rtf stands for Rich Text Format).  We don't want any of that funky jazz because it confuses python, so before saving convert your file to txt format. Go to &quot;Format&quot; in the menu bar and click &quot;Make Plain Text&quot;</p>
+                <p><img src="img/plaintext.png" width="445" height="242" /></p>
+                <p>Now hit &lt;Cmd-s&gt; to save the file.  Save it in your folder with the name &quot;lesson_6.txt&quot;.</p>
+                <p>Go to terminal and run</p>
+                <div class="code">
+                  <p>$ python lesson_6.txt</p></div>
+<h2>Class/Object</h2>
+<p>Just like functions, classes are used extensively throughout programs. Classes allow you to refer to things in a common-sense way. For instance, in the previous lesson we had to hold onto variables x0, y0, x1, y1, and call functions like &quot;canvas.move()&quot;. With classes we can just have something we call a &quot;Box&quot; and we can move it by saying box.move(). </p>
+<p><br />
+  Copy the code below into text edit and try running it.</p>
+<div class="code"><p># Displays a red circle bouncing around the canvas window.<br />
+  from Tkinter import *</p>
+  <p># define what a &quot;Box&quot; class is...<br />
+    class Box:<br />
+    # this is called when a box is created<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, x0, y0, x1, y1, deltaX, deltaY, canvas, color, name):<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.x0 = x0<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.y0 = y0<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.x1 = x1<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.y1 = y1<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.deltaX = deltaX<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.deltaY = deltaY<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.canvas = canvas<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.name = name<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.rect = canvas.create_rectangle(x0, y0, x1, y1, fill=color, tag=name)<br />
+    <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;# this moves the box around the screen.<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;def move(self, windowWidth, windowHeight):<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.canvas.move(self.name, self.deltaX, self.deltaY)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.x1 &gt;= windowWidth or self.x0 &lt; 0:<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.deltaX = -self.deltaX<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.y1 &gt;= windowHeight or self.y0 &lt; 0:<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.deltaY = -self.deltaY<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.x0 += self.deltaX<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.x1 += self.deltaX<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.y0 += self.deltaY<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.y1 += self.deltaY<br /><br />
+    # make a window on the computer<br />
+    window = Tk()<br /><br />
+    #set the size of the window<br />
+    windowWidth = 800<br />
+    windowHeight = 600<br />
+    canvas = Canvas(window, width=windowWidth, height=windowHeight)<br />
+    canvas.pack()<br /><br />
+    # create a single box<br />
+    box = Box(10, 50, 60, 100, 10, 10, canvas, 'red', 'redbox')<br /><br />
+  
+    # this loop never stops! It just keeps going till you quit the program<br />
+    while True:<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;# the animation happens here<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;# move the box<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;box.move(windowWidth, windowHeight)<br />
+  <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;# wait a little bit<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;canvas.after(20)<br /><br />
+  &nbsp;&nbsp;&nbsp;&nbsp;# show the canvas on the screen<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;canvas.update()<br />
+  <br />
+    window.mainloop()</p>
+</div>
+  <p>Play around with the code a little bit, changing numbers and words and seeing what happens.  Try to make the box be green, then turn the box into an oval.</p>
+<p>One nice thing about classes and objects is that you can create tons of objects from a single class. Copy and run the code below.</p>
+<div class="code"><p># Displays a red circle bouncing around the canvas window.<br />
+  from Tkinter import *</p>
+  <p># define what a &quot;Box&quot; class is...<br />
+    class Box:<br />
+    # this is called when a box is created<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, x0, y0, x1, y1, deltaX, deltaY, canvas, color, name):<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.x0 = x0<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.y0 = y0<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.x1 = x1<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.y1 = y1<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.deltaX = deltaX<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.deltaY = deltaY<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.canvas = canvas<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.name = name<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.rect = canvas.create_rectangle(x0, y0, x1, y1, fill=color, tag=name)<br />
+    <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;# this moves the box around the screen.<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;def move(self, windowWidth, windowHeight):<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.canvas.move(self.name, self.deltaX, self.deltaY)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.x1 &gt;= windowWidth or self.x0 &lt; 0:<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.deltaX = -self.deltaX<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.y1 &gt;= windowHeight or self.y0 &lt; 0:<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.deltaY = -self.deltaY<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.x0 += self.deltaX<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.x1 += self.deltaX<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.y0 += self.deltaY<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.y1 += self.deltaY<br /><br />
+    # make a window on the computer<br />
+    window = Tk()<br /><br />
+    #set the size of the window<br />
+    windowWidth = 800<br />
+    windowHeight = 600<br />
+    canvas = Canvas(window, width=windowWidth, height=windowHeight)<br />
+    canvas.pack()<br /><br />
+    # create two boxes<br />
+    redbox = Box(10, 50, 60, 100, 10, 10, canvas, 'red', 'redbox')<br />
+    bluebox = Box(10, 50, 60, 100, 10, 10, canvas, 'blue', 'bluebox')<br /><br />
+  
+    # this loop never stops! It just keeps going till you quit the program<br />
+    while True:<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;# the animation happens here<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;# move the boxes<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;redbox.move(windowWidth, windowHeight)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;bluebox.move(windowWidth, windowHeight)<br />
+  <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;# wait a little bit<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;canvas.after(20)<br /><br />
+  &nbsp;&nbsp;&nbsp;&nbsp;# show the canvas on the screen<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;canvas.update()<br />
+  <br />
+    window.mainloop()</p>
+  </div>
+<p>Pretty sweet right! Can you add a third box to the screen?</p>
+<p>Now if you think you have this all down, try and make a list of boxes and use a for loop to call each box's &quot;move&quot; function.</p>
+            <!-- InstanceEndEditable -->
+  </div>
+            <br class="clearfloat" />
+        <p class="footer">Popp.Phillip <em>at</em> gmail <em>dot</em> com </p>
+        </div>
+    </body>
+<!-- InstanceEnd --></html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/basic.dwt" codeOutsideHTMLIsLocked="false" -->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+        <!-- InstanceBeginEditable name="doctitle" -->
+        <title>Phillip Popp</title>
+        <!-- InstanceEndEditable -->
+        <!-- InstanceBeginEditable name="head" -->
+        <!-- InstanceEndEditable -->
+        <link href="../../main.css" rel="stylesheet" type="text/css"></link>
+        <script type="application/javascript" src="../../../js/jquery-1.7.1.min.js"></script>
+        <script type="application/javascript" src="../../../js/sliding_background.js"></script>
+        <script type="text/javascript">
+		$(document).ready(function() {
+			attach_sliding_background(".twoCol");
+		});
+		</script>
+   </head>
+    
+    <body class="twoCol">    
+        <div id="container">
+          <p class="nav_link"><a href="../../index.html">Main</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Sound</p>
+          <p class="nav_link" ><a href="../../the_interweb/index.html">The Interweb</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Code</p>
+          <p class="nav_link"><a href="../../publications/index.html">Publications</a></p>
+          <p class="nav_link" style="text-decoration:line-through">Resume</p>
+          <p class="nav_link"><a href="../index.html">Courses</a></p>
+          <p class="nav_link"><a href="../../contact/index.html">Contact</a></p>
+            <br class="clearfloat" />
+          <div id="mainContent">
+            <!-- InstanceBeginEditable name="main_content" -->
+                <h1>Lesson 2</h1>
+                <p>Press &lt;Cmd-Space&gt;.  This brings up your search bar. </p>
+                <p><img src="img/search_term.png" width="520" height="135" /><br />
+                Type in the word &quot;terminal&quot; to have it search for the Terminal Application.</p>
+                <p><img src="img/terminal.png" width="709" height="485" /><br />
+                Hit &lt;return&gt; to start Terminal.</p>
+                <h2>Refresher</h2>
+            <p>We learned several terminal commands last week. To run them you just have to type them into the terminal and hit &lt;return&gt;</p>
+                <p>ls -- list directory contents<br />
+                  cd -- change directory<br />
+                  mkdir -- make directory<br />
+            top -- display information about the processor, RAM and other computer programs running</p>
+                <p>Last week we created a folder with your name on it.  Use &quot;cd&quot; to change directories until you get there (hint: these were placed on the desktop so you'll have to start with &quot;cd Desktop&quot;) </p>
+                <p>FYI, in these instructions if you're supposed to type something into Terminal, it'll generally be shown as </p>
+                <div class="code"><p>$ cd Desktop</p></div>
+                <p>You don't need to type in the &quot;$ &quot;, but just know that it means to type things into terminal.  And don't forget to hit &lt;return&gt; when you're done!</p>
+                <p>Press &lt;Cmd-Space&gt; again to bring up your Mac spotlight search, and this time type in textedit. <br />
+                  Hit return to start the TextEdit application.</p>
+                <p><img src="img/starttextedit.png" width="659" height="615" /></p>
+                <p>Just to get things rolling, in TextEdit type</p>
+                <div class="code">
+                  <p>print &quot;starting lesson 2!&quot;</p></div>
+                <p>Before saving, remember that TextEdit initially tries to save files in rtf (rtf stands for Rich Text Format).  We don't want any of that funky jazz because it confuses python, so before saving convert your file to txt format. Go to &quot;Format&quot; in the menu bar and click &quot;Make Plain Text&quot;</p>
+                <p><img src="img/plaintext.png" width="445" height="242" /></p>
+                <p>Now hit &lt;Cmd-s&gt; to save the file.  Save it in your folder with the name &quot;lesson_2.txt&quot;.</p>
+                <p>Go to terminal and run</p>
+                <div class="code">
+                  <p>$ python lesson_2.txt</p></div>
+            <p>Now go get Phil and show him what came out.  If you're having trouble, also get Phil and tell him to help you out.<br />
+                </p>
+                <h2>Variables</h2>
+                <p>Variables are a very important part to any program or programming language. They're place holders for information.  In python, variables have types.  Today we'll play with strings and numbers. </p>
+                <h3>Numbers</h3>
+                <p>Erase what you had in TextEdit and type this instead</p>
+                <div class="code"><p>x = 5<br />
+                  y = 10<br />
+                  z = x + y<br />
+            print z</p></div>
+                <p>When you run your program, what do you think we'll happen?  Save your file by hitting &lt;Cmd-S&gt; and then go to your terminal and run</p>
+                <div class="code">
+                  <p>$ python lesson_2.txt</p></div>
+            <p>No answer this question, what is (123534325 + 289385) * 135364 / 23483?<br />
+                  You can do this math by hand or you can use your python script (NO CALCULATORS/CELL-PHONES or WHATEVER! NOT EVEN THE CALCULATOR ON THE COMPUTER).  When you have the answer, get Phil and tell him the answer.  If you're having trouble, get Phil anyway!</p>
+                <h3>Strings</h3>
+                <p>In computer-jargon, strings just mean words.  Now we'll run our old program again, but this time with strings.  Type this into TextEdit</p>
+                <div class="code"><p>x = &quot;you are a&quot;<br />
+                  y = &quot;wiz at python&quot;<br />
+                  z = x + y<br />
+            print z</p></div>
+                <p>When you run your program, what do you think we'll happen?  Save your file by hitting &lt;Cmd-S&gt; and then go to your terminal and run</p>
+                <div class="code">
+                  <p>$ python lesson_2.txt</p></div>
+                <p>What happens if you change it to (notice I changed &quot;+&quot; with &quot;-&quot;)?</p>
+                <div class="code"><p>x = &quot;you are a&quot;<br />
+                  y = &quot;wiz at python&quot;<br />
+                  z = x - y<br />
+                  print z</p></div>
+            <p>Try it out, and get Phil and tell him why you think things turned out that way.</p>
+                <p>Congratulations!<br />
+                  Now lets move onto Flow Control</p>
+            <h2>Flow Control</h2>
+<p>There are several different types of flow control, today we'll be working with &quot;if&quot; statements and for loops.</p>
+                <h3>If</h3>
+                <p>If statements check whether something is true.  If it is true then it runs some code, otherwise it won't.</p>
+                <p>Get rid of your old stuff in TextEdit and try typing this into TextEdit:</p>
+            <div class="code">
+            	<p>y = ?<br />
+                x = 10<br />
+                z = x + y<br />
+                if x == 23:<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;print &quot;Nice one!&quot;<br />
+                else:<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;print &quot;try again&quot;</p></div><br />
+  <br />
+                  As you can see there's a &quot;?&quot; in the text.  You need to figure out what value that &quot;?&quot; should be so that you're program prints out &quot;Nice one!&quot;.<br />
+                  Once you get it tell Phil! Or ask him questions!</p>
+                <h3>For</h3>
+                <p>For loops repeat a bunch of code once for each value.  As an example try this piece of code out</p>
+                <div class="code"><p>for i in range(0, 100):<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;print &quot;wow! we're on number &quot; + str(i)</p></div>
+                  <p>
+            Sweet, well done!  Ok, here's a last challenge: add up the numbers 1 through a 1000.  I mean like this</p>
+                <p>1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 ...</p>
+                <p>What's the answer? Tell PHIL!</p>
+                <p>Hint: try a &quot;for loop&quot;<br />
+                  Hint: Did you know you can do things like this in python</p>
+                <div class="code"><p>x = 1<br />
+                  x = x + 1<br />
+                  x = x + 1<br />
+                  print x</p></div>
+                <p>(this program prints the number &quot;4&quot;)</p>
+                <p> </p>
+            <!-- InstanceEndEditable -->
+</div>
+            <br class="clearfloat" />
+        <p class="footer">Popp.Phillip <em>at</em> gmail <em>dot</em> com </p>
+        </div>
+    </body>
+<!-- InstanceEnd --></html>

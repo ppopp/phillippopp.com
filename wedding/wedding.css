@@ -1,0 +1,11 @@
+@charset "UTF-8";
+/* CSS Document */
+
+p
+{	
+	font:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+p.light {
+	color:#666;
+}
